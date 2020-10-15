@@ -2,21 +2,23 @@
 #include <vector>
 #include <fstream>
 #include "geometry.h"
+#include "additionalMath.h"
 #include <string>
 #include <SFML/Graphics.hpp>
+#include "Layers.h"
 
 class System {
-	double interpolate(double left, double right, double val);
-
 public:
 	double dt = 0.02;
-	double cellSize = 1;
+	Layers layers;
 	std::vector<double> landscape;
+
+	Vec2 mouse;
 
 	System();
 	~System();
 
-	std::vector<double> generateLandscape(int len, int levels, double initialSize, double ratio);
+	std::vector<double> generateLandscape();
 
 	void step();
 };

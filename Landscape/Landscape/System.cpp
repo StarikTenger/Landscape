@@ -1,4 +1,4 @@
-#include "System.h"
+﻿#include "System.h"
 #include "geometry.h"
 #include "random.h"
 
@@ -6,48 +6,43 @@
 #include <fstream>
 #include <algorithm>
 
-double System::interpolate(double left, double right, double val) {
-	return  left + (right - left) * (-2 * val * val * val + 3 * val * val);
-}
-
 System::System() {
-	landscape = generateLandscape(600, 3, 300, 2);
+	layers = Layers(600, 7, 1, 300, 2);
+	landscape = generateLandscape();
 }
 
 System::~System() {
 }
 
-std::vector<double> System::generateLandscape(int len, int levels, double initialSize, double ratio) {
+std::vector<double> System::generateLandscape() {
+	int len = layers.len;
 	std::vector<double> landscape(len);
 
-	std::vector<std::vector<double>> layers;
+	std::vector<std::vector<double>> heightLayers;
 
-	double currentSize = initialSize;
-	double currentAmplitude = 500;
+	double currentSize = layers.initialSize;
+	double currentAmplitude = 600;
 
-	for (int i = 0; i < levels; i++) {
-		std::vector<double> anchorPoints((int)(len * cellSize / currentSize) + 1);
-
-		for (auto& h : anchorPoints)
-			h = random::floatRandom(0, currentAmplitude, 2);
+	for (int i = 0; i < layers.layers.size(); i++) {
 
 		std::vector<double> layer(len);
 		for (int j = 0; j < len; j++) {
-			int k = (int)(j * cellSize / currentSize);
-			layer[j] =  interpolate(anchorPoints[k], anchorPoints[k + 1], j * cellSize / currentSize - k);
+			int k = (int)(j * layers.cellSize / currentSize);
+			layer[j] =  additionalMath::interpolateCubic(layers.layers[i][k].value(), layers.layers[i][k + 1].value(),
+				j * layers.cellSize / currentSize - k) * currentAmplitude;
 		}
 
-		layers.push_back(layer);
-		currentSize /= ratio;
-		currentAmplitude /= ratio;
+		heightLayers.push_back(layer);
+		currentSize /= layers.ratio;
+		currentAmplitude /= layers.ratio;
 	}
 
 	for (auto& h : landscape)
 		h = 0;
 
-	for (int i = 0; i < levels; i++)
+	for (int i = 0; i < heightLayers.size(); i++)
 		for (int j = 0; j < len; j++)
-			landscape[j] += layers[i][j];
+			landscape[j] += heightLayers[i][j];
 
 	return landscape;
 }

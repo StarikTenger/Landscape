@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="additionalMath.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Control.cpp" />
@@ -161,14 +162,17 @@
     <ClCompile Include="Gamepad.cpp" />
     <ClCompile Include="geometry.cpp" />
     <ClCompile Include="getMilliCount.cpp" />
+    <ClCompile Include="Layers.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Point.cpp" />
     <ClCompile Include="random.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="System.step.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="additionalMath.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Control.h" />
@@ -177,7 +181,9 @@
     <ClInclude Include="geometry.h" />
     <ClInclude Include="getMilliCount.h" />
     <ClInclude Include="keys.h" />
+    <ClInclude Include="Layers.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Point.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="Vec2.h" />

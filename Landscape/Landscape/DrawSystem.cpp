@@ -35,7 +35,7 @@ void DrawSystem::drawScene() {
 	fillRect(0, 0, 100, 10, Color(255, 255, 255));
 
 	for (int i = 0; i < sys.landscape.size(); i++) {
-		fillRect(i * sys.cellSize, 0, sys.cellSize, sys.landscape[i], Color(255, 255, 255));
+		fillRect(i * sys.layers.cellSize, 0, sys.layers.cellSize, sys.landscape[i], Color(255, 255, 255));
 	}
 
 }

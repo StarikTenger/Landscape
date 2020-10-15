@@ -48,6 +48,8 @@ void Control::step() {
 		events();
 		drawSys.mouse = mouse;
 
+		sys.mouse = mouse.pos;
+
 		for (int i = 0; i < 100; i++) {
 			sys.step();
 		}
