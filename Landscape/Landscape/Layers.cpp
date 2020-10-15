@@ -15,11 +15,15 @@ Layers::Layers(int _len, int levels, double _cellSize, double _initialSize, doub
 	double freqCoeff = 1;
 
 	for (int i = 0; i < levels; i++) {
-		std::vector<Point> anchorPoints((int)(len * cellSize / currentSize) + 1);
+		int currentLen = (int)(len * cellSize / currentSize) + 1;
+		std::vector<std::vector<Point>> anchorPoints(currentLen);
 
-		for (auto& p : anchorPoints) {
-			p.freq = random::floatRandom(1, 3, 4) * freqCoeff;
-			p.phase = random::floatRandom(0, 1, 4) * 2 * M_PI / p.freq;
+		for (auto& line : anchorPoints) {
+			line = std::vector<Point>(currentLen);
+			for (auto& p : line) {
+				p.freq = random::floatRandom(1, 3, 4) * freqCoeff;
+				p.phase = random::floatRandom(0, 1, 4) * 2 * M_PI / p.freq;
+			}			
 		}
 
 		layers.push_back(anchorPoints);

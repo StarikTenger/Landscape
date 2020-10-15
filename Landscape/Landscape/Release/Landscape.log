@@ -1,7 +1,10 @@
-﻿  additionalMath.cpp
+﻿  System.step.cpp
+C:\Users\ilyin\GitHub\Landscape\Landscape\Landscape\System.step.cpp(21,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\ilyin\GitHub\Landscape\Landscape\Landscape\System.step.cpp(24,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\ilyin\GitHub\Landscape\Landscape\Landscape\System.step.cpp(25,22): warning C4018: '<': signed/unsigned mismatch
   Generating code
-  4 of 658 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+  1 of 783 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Landscape.vcxproj -> C:\Users\ilyin\GitHub\Landscape\Landscape\Release\Landscape.exe

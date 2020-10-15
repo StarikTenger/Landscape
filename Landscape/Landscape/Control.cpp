@@ -50,7 +50,7 @@ void Control::step() {
 
 		sys.mouse = mouse.pos;
 
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 1; i++) {
 			sys.step();
 		}
 

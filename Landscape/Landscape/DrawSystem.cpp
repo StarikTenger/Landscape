@@ -32,10 +32,20 @@ void DrawSystem::drawScene() {
 	view.setRotation((cam.dir * 180 / M_PI));
 	window->setView(view);
 
-	fillRect(0, 0, 100, 10, Color(255, 255, 255));
-
 	for (int i = 0; i < sys.landscape.size(); i++) {
-		fillRect(i * sys.layers.cellSize, 0, sys.layers.cellSize, sys.landscape[i], Color(255, 255, 255));
+		for (int j = 0; j < sys.landscape.size(); j++) {
+			double alpha = sys.landscape[i][j] * 255 / 2;
+			double limit = 1.3;
+
+			Color col(100, 100, 255);
+
+			if (sys.landscape[i][j] > limit)
+				col = Color(100 + (sys.landscape[i][j] - limit) * 200, 255 - (sys.landscape[i][j] - limit) * 200, 100 - (sys.landscape[i][j] - limit) * 100);
+
+			col.a = alpha;
+
+			fillRect(i * sys.layers.cellSize, j * sys.layers.cellSize, sys.layers.cellSize, sys.layers.cellSize, col);
+		}
 	}
 
 }
