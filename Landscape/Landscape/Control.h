@@ -10,6 +10,7 @@
 #include "System.h"
 #include "geometry.h"
 #include "Mouse.h"
+#include "Config.h"
 #include "Gamepad.h"
 
 enum controlMode {
@@ -25,6 +26,7 @@ public:
 	Mouse mouse;
 	Mouse mousePrev;
 	Gamepad joystick;
+	Config config;
 
 	std::vector<bool> keys = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 	std::vector<std::vector<int> > keyMatches;

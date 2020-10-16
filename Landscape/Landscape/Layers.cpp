@@ -10,6 +10,7 @@ Layers::Layers(int _len, int levels, double _cellSize, double _initialSize, doub
 	cellSize = _cellSize;
 	initialSize = _initialSize;
 	ratio = _ratio;
+	maxVal = 0;
 	
 	double currentSize = initialSize;
 	double freqCoeff = 1;
@@ -28,6 +29,7 @@ Layers::Layers(int _len, int levels, double _cellSize, double _initialSize, doub
 
 		layers.push_back(anchorPoints);
 		currentSize /= ratio;
+		maxVal += 1.0 / freqCoeff;
 		freqCoeff *= ratio;
 	}
 }

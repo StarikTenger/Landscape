@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "Config.h"
 
 Control::Control() {
 	for (int i = 0; i < 100; i++) {
@@ -21,10 +22,15 @@ Control::Control() {
 
 		}
 	}
+	
+	config.loadFromFile("config.conf");
+
+	sys = System(&config);
+	drawSys.config = &config;
+
 	sys.generateLandscape();
 	drawSys.system = &sys;
 	drawSys.loadGrid();
-	
 }
 
 Control::~Control() {

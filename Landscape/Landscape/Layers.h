@@ -8,6 +8,7 @@ public:
 	double initialSize = 300;
 	double ratio = 2;
 	double cellSize = 1;
+	double maxVal = 0;
 	std::vector<std::vector<std::vector<Point>>> layers;
 	Layers();
 	Layers(int _len, int levels, double _cellSize, double _initialSize, double _ratio);

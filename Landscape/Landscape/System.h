@@ -6,9 +6,12 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "Layers.h"
+#include "Config.h"
 
 class System {
 public:
+	Config* config;
+
 	double dt = 0.02;
 	Layers layers;
 	std::vector<std::vector<double>> landscape;
@@ -17,6 +20,7 @@ public:
 	int mode = 0;
 
 	System();
+	System(Config* _config);
 	~System();
 
 	std::vector<std::vector<double>> generateLandscape();

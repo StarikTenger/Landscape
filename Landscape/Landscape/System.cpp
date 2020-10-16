@@ -1,13 +1,18 @@
 ﻿#include "System.h"
 #include "geometry.h"
 #include "random.h"
+#include "Config.h"
 
 #include <iostream>
 #include <fstream>
 #include <algorithm>
 
 System::System() {
-	layers = Layers(600, 5, 1, 100, 2);
+}
+
+System::System(Config* _config) {
+	config = _config;
+	layers = Layers(600, config->levels, 1, config->initialSize, config->ratio);
 	landscape = generateLandscape();
 }
 

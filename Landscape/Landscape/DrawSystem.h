@@ -11,6 +11,7 @@ public:
 	sf::RenderWindow* window;
 	Camera cam;
 	System* system;
+	Config* config;
 	bool fullscreenMode = 0;
 	DrawSystem();
 	~DrawSystem();
@@ -38,7 +39,7 @@ private:
 	void text(std::string text, double x, double y, int size, Color color);
 	//objects
 	sf::Image gridImg;
-	Color getCol(double val);
+	Color getCol(double val, double threshold);
 
 	//load
 	std::map<std::string, sf::Texture*> textures;

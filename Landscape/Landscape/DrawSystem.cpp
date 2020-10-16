@@ -5,11 +5,12 @@
 #include <SFML/Window.hpp>
 
 #include <iostream>
+#include "Config.h"
 
 
 
 DrawSystem::DrawSystem(){
-	window = new sf::RenderWindow(sf::VideoMode(600, 600), "GGKP");
+	window = new sf::RenderWindow(sf::VideoMode(600, 600), "Dynamic Landscape", sf::Style::Close);
 	loadTextures();
 	sf::Texture *tex = new sf::Texture;
 	textures["render"] = tex;
@@ -28,14 +29,12 @@ void DrawSystem::loadGrid() {
 
 	double alpha = 255;
 	double currentSize = (int)sys.layers.initialSize;
-	double threshold = 0.5 / sys.layers.initialSize;
+	double threshold = 0.9 / sys.layers.initialSize;
 	for (int i = 0; i < sys.layers.layers.size(); i++) {
 		for (int x = 0; x < sys.landscape.size(); x++) {
 			for (int y = 0; y < sys.landscape.size(); y++) {
 				if ((x / currentSize - (int)(x / currentSize)) < threshold ||
 					(y / currentSize - (int)(y / currentSize)) < threshold) {
-					//Color col = getCol(sys.landscape[x][y]);
-					//col = Color(255, 255, 255) - col;
 					Color col(255, 255, 255);
 					gridImg.setPixel(x, y, sf::Color(col.r, col.g, col.b, std::max(alpha, (double)gridImg.getPixel(x, y).a)));
 				}
@@ -83,7 +82,7 @@ void DrawSystem::drawScene() {
 				col = Color(100 + (sys.landscape[x][y] - limit) * 200, 255 - (sys.landscape[x][y] - limit) * 200, 100 - (sys.landscape[x][y] - limit) * 100);
 
 			// Pixel on map
-			col = getCol(sys.landscape[x][y]);
+			col = getCol(sys.landscape[x][y] / sys.layers.maxVal, config->threshold);
 			render.setPixel(x, y, sf::Color(col.r, col.g, col.b, col.a));
 
 			// Pixel on grid
