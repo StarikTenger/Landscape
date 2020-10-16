@@ -15,7 +15,7 @@ Layers::Layers(int _len, int levels, double _cellSize, double _initialSize, doub
 	double freqCoeff = 1;
 
 	for (int i = 0; i < levels; i++) {
-		int currentLen = (int)(len * cellSize / currentSize) + 1;
+		int currentLen = ceil(len * cellSize / currentSize) + 1;
 		std::vector<std::vector<Point>> anchorPoints(currentLen);
 
 		for (auto& line : anchorPoints) {

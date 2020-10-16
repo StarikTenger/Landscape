@@ -96,6 +96,9 @@
     <ClCompile Include="Point.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
+    <ClCompile Include="DrawSystem.objects.cpp">
+      <Filter>Source Files\DrawSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">

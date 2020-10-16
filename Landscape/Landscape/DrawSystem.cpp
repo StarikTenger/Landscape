@@ -11,7 +11,45 @@
 DrawSystem::DrawSystem(){
 	window = new sf::RenderWindow(sf::VideoMode(600, 600), "GGKP");
 	loadTextures();
+	sf::Texture *tex = new sf::Texture;
+	textures["render"] = tex;
+}
+
+void DrawSystem::loadGrid() {
+	System& sys = *system;
+	gridImg.create(sys.landscape.size(), sys.landscape.size());
+
 	
+	for (int x = 0; x < sys.landscape.size(); x++) {
+		for (int y = 0; y < sys.landscape.size(); y++) {
+			gridImg.setPixel(x, y, sf::Color(0, 0, 0, 0));
+		}
+	}
+
+	double alpha = 255;
+	double currentSize = (int)sys.layers.initialSize;
+	double threshold = 0.5 / sys.layers.initialSize;
+	for (int i = 0; i < sys.layers.layers.size(); i++) {
+		for (int x = 0; x < sys.landscape.size(); x++) {
+			for (int y = 0; y < sys.landscape.size(); y++) {
+				if ((x / currentSize - (int)(x / currentSize)) < threshold ||
+					(y / currentSize - (int)(y / currentSize)) < threshold) {
+					//Color col = getCol(sys.landscape[x][y]);
+					//col = Color(255, 255, 255) - col;
+					Color col(255, 255, 255);
+					gridImg.setPixel(x, y, sf::Color(col.r, col.g, col.b, std::max(alpha, (double)gridImg.getPixel(x, y).a)));
+				}
+			}
+		}
+
+		currentSize /= sys.layers.ratio;
+		alpha /= sys.layers.ratio;
+		threshold *= sys.layers.ratio;
+	}
+
+	sf::Texture* grid = new sf::Texture;
+	grid->loadFromImage(gridImg);
+	textures["grid"] = grid;
 }
 
 DrawSystem::~DrawSystem(){}
@@ -32,22 +70,34 @@ void DrawSystem::drawScene() {
 	view.setRotation((cam.dir * 180 / M_PI));
 	window->setView(view);
 
-	for (int i = 0; i < sys.landscape.size(); i++) {
-		for (int j = 0; j < sys.landscape.size(); j++) {
-			double alpha = sys.landscape[i][j] * 255 / 2;
+
+	sf::Image render;
+	render.create(sys.landscape.size(), sys.landscape.size());
+	for (int x = 0; x < sys.landscape.size(); x++) {
+		for (int y = 0; y < sys.landscape.size(); y++) {
 			double limit = 1.3;
 
 			Color col(100, 100, 255);
 
-			if (sys.landscape[i][j] > limit)
-				col = Color(100 + (sys.landscape[i][j] - limit) * 200, 255 - (sys.landscape[i][j] - limit) * 200, 100 - (sys.landscape[i][j] - limit) * 100);
+			if (sys.landscape[x][y] > limit)
+				col = Color(100 + (sys.landscape[x][y] - limit) * 200, 255 - (sys.landscape[x][y] - limit) * 200, 100 - (sys.landscape[x][y] - limit) * 100);
 
-			col.a = alpha;
+			// Pixel on map
+			col = getCol(sys.landscape[x][y]);
+			render.setPixel(x, y, sf::Color(col.r, col.g, col.b, col.a));
 
-			fillRect(i * sys.layers.cellSize, j * sys.layers.cellSize, sys.layers.cellSize, sys.layers.cellSize, col);
+			// Pixel on grid
+			auto alpha = gridImg.getPixel(x, y).a;
+			col = Color(255, 255, 255) - col;
+			gridImg.setPixel(x, y, sf::Color(col.r, col.g, col.b, alpha));
 		}
 	}
 
+	
+	textures["render"]->loadFromImage(render);
+	image("render", 300, 300, 600, 600, 0);
+	textures["grid"]->loadFromImage(gridImg);
+	image("grid", 300, 300, 600, 600, 0);
 }
 
 void DrawSystem::drawInterface() {

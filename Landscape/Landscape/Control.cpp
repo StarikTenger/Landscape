@@ -21,6 +21,10 @@ Control::Control() {
 
 		}
 	}
+	sys.generateLandscape();
+	drawSys.system = &sys;
+	drawSys.loadGrid();
+	
 }
 
 Control::~Control() {
@@ -49,6 +53,7 @@ void Control::step() {
 		drawSys.mouse = mouse;
 
 		sys.mouse = mouse.pos;
+		sys.mode = mouse.state;
 
 		for (int i = 0; i < 1; i++) {
 			sys.step();

@@ -14,6 +14,7 @@ public:
 	std::vector<std::vector<double>> landscape;
 
 	Vec2 mouse;
+	int mode = 0;
 
 	System();
 	~System();

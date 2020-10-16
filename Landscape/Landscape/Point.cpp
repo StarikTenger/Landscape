@@ -2,6 +2,6 @@
 #include "math.h"
 
 Point::Point() {}
-double Point::value() {
-	return 0.5 + sin(phase * freq) * 0.5;
+void Point::calculateValue() {
+	value =  0.5 + sin(phase * freq) * 0.5;
 }

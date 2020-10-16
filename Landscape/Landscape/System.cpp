@@ -7,7 +7,7 @@
 #include <algorithm>
 
 System::System() {
-	layers = Layers(100, 5, 6, 100, 2);
+	layers = Layers(600, 5, 1, 100, 2);
 	landscape = generateLandscape();
 }
 
@@ -33,9 +33,12 @@ std::vector<std::vector<double>> System::generateLandscape() {
 			for (int y = 0; y < len; y++) {
 				int x0 = (int)(x * layers.cellSize / currentSize);
 				int y0 = (int)(y * layers.cellSize / currentSize);
-				double top = additionalMath::interpolateCubic(layers.layers[i][x0][y0].value(), layers.layers[i][x0 + 1][y0].value(),
+				if (x0 >= layers.layers[i].size() || y0 >= layers.layers[i].size())
+					continue;
+
+				double top = additionalMath::interpolateCubic(layers.layers[i][x0][y0].value, layers.layers[i][x0 + 1][y0].value,
 					x * layers.cellSize / currentSize - x0);
-				double bottom = additionalMath::interpolateCubic(layers.layers[i][x0][y0 + 1].value(), layers.layers[i][x0 + 1][y0 + 1].value(),
+				double bottom = additionalMath::interpolateCubic(layers.layers[i][x0][y0 + 1].value, layers.layers[i][x0 + 1][y0 + 1].value,
 					x * layers.cellSize / currentSize - x0);
 				layer[x][y] = additionalMath::interpolateCubic(top, bottom,
 					y * layers.cellSize / currentSize - y0) * currentAmplitude;

@@ -124,3 +124,4 @@ void DrawSystem::text(std::string text, double x, double y, int size, Color colo
 	drawnText.setPosition(x, y);
 	window->draw(drawnText);
 }
+

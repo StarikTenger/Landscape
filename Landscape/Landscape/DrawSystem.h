@@ -14,17 +14,18 @@ public:
 	bool fullscreenMode = 0;
 	DrawSystem();
 	~DrawSystem();
+	void loadGrid();
 	Mouse mouse;
 	double w, h;
 	double blockSize = 1;
 
-
+	
 	void draw();
 	void drawScene();
 	void drawInterface();
 	sf::Font font;
 	
-//private:
+private:
 	//basics
 	Color fromHSV(double H, double S, double V);
 	void fillRect(double x, double y, double width, double height, Color color);
@@ -36,7 +37,9 @@ public:
 	void image(std::string name, double x, double y, double width, double height, double angle, double d);
 	void text(std::string text, double x, double y, int size, Color color);
 	//objects
-	
+	sf::Image gridImg;
+	Color getCol(double val);
+
 	//load
 	std::map<std::string, sf::Texture*> textures;
 	void loadTexture(std::string name, std::string path);
